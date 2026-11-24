@@ -11,17 +11,19 @@
 <link href="https://fonts.googleapis.com/css2?family=Sora:wght@500;600;700;800&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
 <style>
 :root{
-  --bg:#f4f6f3; --surface:#ffffff; --surface2:#eef2ec; --ink:#16211a; --ink2:#5b6a60;
-  --line:#e2e8e1; --brand:#1d9e5f; --brand-dark:#147347; --brand-soft:#e2f4e9;
-  --protein:#e4572e; --carbs:#e9a13b; --fat:#7c5cbf;
-  --danger:#d64545; --shadow:0 10px 30px rgba(22,40,28,.08); --shadow-sm:0 3px 12px rgba(22,40,28,.07);
-  --radius:20px;
+  --bg:#faf6ef; --surface:#ffffff; --surface2:#f3ede1; --ink:#171310; --ink2:#6f655a;
+  --line:#ece3d3; --brand:#ff4d1c; --brand-dark:#d93a0e; --brand-soft:#ffece3;
+  --lime:#c8e62e; --lime-soft:#f2f8d0; --teal:#0aa79b; --teal-soft:#dcf5f1; --violet:#6c4cf1; --violet-soft:#ece8ff; --amber:#f5a623;
+  --protein:#ff4d1c; --carbs:#f5a623; --fat:#6c4cf1; --water:#0aa79b;
+  --danger:#d64545; --shadow:0 12px 32px rgba(60,35,10,.10); --shadow-sm:0 3px 14px rgba(60,35,10,.08);
+  --radius:22px;
 }
 @media (prefers-color-scheme: dark){
   :root{
-    --bg:#10160f; --surface:#1a211a; --surface2:#232c23; --ink:#eef4ee; --ink2:#a7b5a8;
-    --line:#2c362c; --brand:#2fbf71; --brand-dark:#2fbf71; --brand-soft:#1d3325;
-    --shadow:0 10px 30px rgba(0,0,0,.4); --shadow-sm:0 3px 12px rgba(0,0,0,.35);
+    --bg:#141110; --surface:#211c19; --surface2:#2c2521; --ink:#fdf6ec; --ink2:#b8aa9a;
+    --line:#3a312b; --brand:#ff6a3d; --brand-dark:#ff8a66; --brand-soft:#3d2116;
+    --lime-soft:#2e3316; --teal-soft:#123331; --violet-soft:#27204a;
+    --shadow:0 12px 32px rgba(0,0,0,.45); --shadow-sm:0 3px 14px rgba(0,0,0,.35);
   }
 }
 *{box-sizing:border-box}
@@ -36,8 +38,37 @@ img{display:block;max-width:100%}
 
 /* ---------- slim header ---------- */
 header.top{position:sticky;top:0;z-index:40;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(10px);margin:0 -16px;padding:10px 16px 8px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--line)}
-.wordmark{font-family:"Sora",sans-serif;font-weight:800;font-size:1.02rem}
+.wordmark{font-family:"Sora",sans-serif;font-weight:800;font-size:1.02rem;display:flex;align-items:center;gap:10px}
 .wordmark span{color:var(--brand)}
+.logo-badge{width:38px;height:38px;border-radius:12px;background:var(--ink);color:#fff;display:flex;align-items:center;justify-content:center;flex:none;position:relative;overflow:hidden}
+.logo-badge::after{content:"";position:absolute;right:-8px;top:-8px;width:20px;height:20px;border-radius:50%;background:var(--lime)}
+.logo-badge svg{width:22px;height:22px;position:relative;z-index:1}
+.brandline{line-height:1.05}.brandline small{display:block;font-family:"Manrope",sans-serif;font-size:.62rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--ink2)}
+.health-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-top:12px}
+.health-stat{background:var(--surface2);border-radius:16px;padding:12px 10px;text-align:center}
+.health-stat b{font-family:"Sora",sans-serif;font-size:1.05rem;display:block;line-height:1.1}
+.health-stat span{font-size:.68rem;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:var(--ink2)}
+.health-stat .hs-icon{font-size:1.1rem;display:block;margin-bottom:4px}
+.sync-row{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+.pill-status{display:inline-flex;align-items:center;gap:6px;font-size:.75rem;font-weight:800;border-radius:999px;padding:5px 10px;background:var(--surface2)}
+.pill-status.on{background:var(--lime-soft);color:#3a4a00}
+@media(prefers-color-scheme:dark){.pill-status.on{color:var(--lime)}}
+.widget-preview{background:var(--ink);color:#fff;border-radius:22px;padding:18px;position:relative;overflow:hidden}
+.widget-preview::after{content:"";position:absolute;right:-30px;top:-30px;width:120px;height:120px;border-radius:50%;background:var(--brand);opacity:.9}
+.widget-preview .wp-kcal{font-family:"Sora",sans-serif;font-size:2.6rem;font-weight:800;line-height:1;position:relative;z-index:1}
+.widget-preview .wp-label{font-size:.72rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase;opacity:.75;position:relative;z-index:1}
+.widget-lock{background:#000;border-radius:18px;padding:14px 16px;color:#fff;display:flex;justify-content:space-between;align-items:center;margin-top:10px}
+.water-bottle{height:14px;border-radius:99px;background:var(--teal-soft);overflow:hidden;margin:10px 0}
+.water-fill{height:100%;background:var(--teal);border-radius:99px;transition:width .7s cubic-bezier(.22,.9,.3,1)}
+.water-btns{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+.micro-grid{display:grid;gap:2px}
+.microbar .pct{font-family:"Sora",sans-serif}
+.microbar.low .fill{background:var(--amber)!important}.microbar.good .fill{background:var(--teal)!important}.microbar.over .fill{background:var(--brand)!important}
+.hero-band{background:var(--ink);color:#fff;border-radius:var(--radius);padding:20px;margin:14px 0;position:relative;overflow:hidden}
+.hero-band h2{color:#fff;font-size:1.35rem;line-height:1.15}
+.hero-band p{color:rgba(255,255,255,.78);font-size:.88rem}
+.hero-band .hb-badge{display:inline-block;background:var(--lime);color:#171310;font-weight:800;font-size:.7rem;letter-spacing:.08em;text-transform:uppercase;border-radius:999px;padding:4px 10px;margin-bottom:10px}
+
 .topdate{font-size:.8rem;color:var(--ink2);font-weight:600}
 
 /* ---------- tabs ---------- */
@@ -68,7 +99,7 @@ header.top{position:sticky;top:0;z-index:40;background:color-mix(in srgb,var(--b
 .chip{border:1.5px solid var(--line);background:var(--surface);color:var(--ink);border-radius:999px;padding:7px 14px;font-weight:700;font-size:.86rem;min-height:2.25rem}
 .chip.on{border-color:var(--brand);background:var(--brand-soft);color:var(--brand-dark)}
 label.f{display:block;font-size:.8rem;font-weight:700;color:var(--ink2);margin:12px 0 5px}
-input[type=number],input[type=text],select,textarea{width:100%;border:1.5px solid var(--line);border-radius:12px;background:var(--surface);padding:9px 12px;outline:none}
+input[type=number],input[type=text],input[type=date],select,textarea{width:100%;border:1.5px solid var(--line);border-radius:12px;background:var(--surface);padding:9px 12px;outline:none}
 input:focus,select:focus,textarea:focus{border-color:var(--brand)}
 textarea{resize:vertical;min-height:3rem}
 .grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
@@ -100,16 +131,16 @@ textarea{resize:vertical;min-height:3rem}
 .daycards{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:14px 0 0}
 .daycard{text-align:left;border:2px solid var(--line);background:var(--surface);border-radius:var(--radius);padding:14px 16px;box-shadow:var(--shadow-sm);transition:border-color .25s,transform .2s,box-shadow .25s;width:100%}
 .daycard:hover{transform:translateY(-2px)}
-.daycard.on{border-color:var(--brand);box-shadow:0 8px 22px rgba(29,158,95,.16)}
+.daycard.on{border-color:var(--brand);box-shadow:0 8px 22px rgba(255,77,28,.16)}
 .daycard .dc-top{display:flex;justify-content:space-between;align-items:center;font-weight:800;font-family:"Sora",sans-serif;font-size:.95rem}
 .daycard .dc-kcal{font-size:1.35rem;font-weight:800;font-family:"Sora",sans-serif;margin-top:4px}
 .daycard .dc-sub{font-size:.78rem;color:var(--ink2);font-weight:600}
-.dotlive{width:9px;height:9px;border-radius:50%;background:var(--brand);box-shadow:0 0 0 0 rgba(29,158,95,.5);animation:pulseDot 2s infinite}
-@keyframes pulseDot{70%{box-shadow:0 0 0 7px rgba(29,158,95,0)}100%{box-shadow:0 0 0 0 rgba(29,158,95,0)}}
+.dotlive{width:9px;height:9px;border-radius:50%;background:var(--brand);box-shadow:0 0 0 0 rgba(255,77,28,.5);animation:pulseDot 2s infinite}
+@keyframes pulseDot{70%{box-shadow:0 0 0 7px rgba(255,77,28,0)}100%{box-shadow:0 0 0 0 rgba(255,77,28,0)}}
 
 /* ---------- voice log ---------- */
 .microw{display:flex;gap:14px;align-items:flex-start}
-.micbtn{flex:none;width:64px;height:64px;border-radius:50%;border:0;background:var(--brand);color:#fff;display:flex;align-items:center;justify-content:center;box-shadow:0 8px 20px rgba(29,158,95,.35);position:relative}
+.micbtn{flex:none;width:64px;height:64px;border-radius:50%;border:0;background:var(--brand);color:#fff;display:flex;align-items:center;justify-content:center;box-shadow:0 8px 20px rgba(255,77,28,.35);position:relative}
 .micbtn svg{width:28px;height:28px}
 .micbtn.listening{animation:micPulse 1.2s ease-in-out infinite;background:#d64545;box-shadow:0 8px 20px rgba(214,69,69,.4)}
 @keyframes micPulse{0%,100%{transform:scale(1)}50%{transform:scale(1.09)}}
@@ -230,7 +261,7 @@ body.app-hidden .onboarding{display:flex}
   <!-- ================= WELCOME / ONBOARDING ================= -->
   <div class="onboarding" id="onboarding">
     <div class="welcome" id="welcomeStep">
-      <p class="w-kicker w-line w1">Hey</p>
+      <p class="w-kicker w-line w1">⚡ MyPersonalTrainer — Train · Fuel · Recover</p>
       <h1 class="w-line w2">Welcome to <span>MyPersonalTrainer</span></h1>
       <p class="w-lets w-line w3">Let's get you started</p>
       <p class="w-sub w-line w4">Tell us your goal and a few basics about you. We will build your calorie and macro targets from that, nothing is pre-filled.</p>
@@ -275,13 +306,58 @@ body.app-hidden .onboarding{display:flex}
 
 <div class="app">
   <header class="top">
-    <div class="wordmark">My<span>Personal</span>Trainer</div>
+    <div class="wordmark"><span class="logo-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2 4.5 13.5H11L9.5 22 19 10h-6.5L13 2Z"/></svg></span><span class="brandline">My<span>Personal</span>Trainer<small>Train · Fuel · Recover</small></span></div>
     <div class="topdate" id="topDate"></div>
   </header>
 
   <!-- ================= TODAY ================= -->
   <section class="panel active" id="panel-today">
+    <div class="hero-band"><span class="hb-badge">Your day at a glance</span><h2>Calories left, steps, sleep &amp; water — one home screen.</h2><p>Synced from your phone, tracked as you log. No digging through five apps to know where you stand.</p></div>
     <div class="daycards" id="dayCards"></div>
+
+    <div class="card" id="healthCard">
+      <h2>❤️ Health sync</h2>
+      <p class="sub">Weight, steps and sleep from Apple Health (iPhone) or Health Connect (Android) — the numbers your phone already tracks.</p>
+      <div class="health-grid">
+        <div class="health-stat"><span class="hs-icon">👟</span><b id="hsSteps">—</b><span>Steps today</span></div>
+        <div class="health-stat"><span class="hs-icon">🌙</span><b id="hsSleep">—</b><span>Sleep last night</span></div>
+        <div class="health-stat"><span class="hs-icon">⚖️</span><b id="hsWeight">—</b><span>Weight</span></div>
+      </div>
+      <div class="sync-row">
+        <span class="pill-status" id="appleStatus">○ Apple Health</span>
+        <span class="pill-status" id="hcStatus">○ Health Connect</span>
+        <span class="sub" id="syncTime" style="align-self:center"></span>
+      </div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:12px">
+        <button class="btn small" id="connectAppleBtn">Connect Apple Health</button>
+        <button class="btn small ghost" id="connectHcBtn">Connect Health Connect</button>
+        <button class="btn small ghost" id="syncNowBtn">Sync now</button>
+      </div>
+      <p class="est" style="margin-top:10px">Web preview: live sync runs in the phone app, where Apple Health / Health Connect permissions live. Tap Connect to preview the synced view — values below are editable demo values for this session, and weight follows your Profile weight when set.</p>
+      <div class="grid3" style="margin-top:8px">
+        <div><label class="f" for="hsStepsIn">Steps</label><input type="number" id="hsStepsIn" placeholder="e.g. 8432" /></div>
+        <div><label class="f" for="hsSleepIn">Sleep (hrs)</label><input type="number" id="hsSleepIn" step="0.1" placeholder="e.g. 7.4" /></div>
+        <div><label class="f" for="hsWeightIn">Weight (lb)</label><input type="number" id="hsWeightIn" placeholder="e.g. 165" /></div>
+      </div>
+      <button class="btn small ghost block" id="hsSaveBtn" style="margin-top:10px">Use these values</button>
+      <div id="healthInsight" style="margin-top:10px"></div>
+    </div>
+
+    <div class="card">
+      <h2>📱 Widgets — calories left, always visible</h2>
+      <p class="sub">This is exactly what your home-screen and lock-screen widgets show. They update the moment you log food or water.</p>
+      <div class="widget-preview" style="margin-top:12px">
+        <div class="wp-label">MyPersonalTrainer · Calories left</div>
+        <div class="wp-kcal" id="wpKcal">—</div>
+        <div class="sub" style="color:rgba(255,255,255,.8);position:relative;z-index:1" id="wpSub">Log food to see your countdown</div>
+      </div>
+      <div class="widget-lock"><div><b style="font-family:'Sora',sans-serif" id="wpLockKcal">— kcal left</b><div class="sub" style="color:rgba(255,255,255,.65)">Lock screen · Protein <span id="wpLockP">—</span> · Water <span id="wpLockW">—</span></div></div><span style="font-size:1.4rem">⚡</span></div>
+      <ol class="inglist" style="margin-top:12px">
+        <li><b>iPhone:</b> long-press home screen → + → MyPersonalTrainer → add the Calories Left widget. For lock screen: long-press lock screen → Customize → add widget.</li>
+        <li><b>Android:</b> long-press home screen → Widgets → MyPersonalTrainer → Calories Left.</li>
+      </ol>
+      <p class="est">Widgets ship with the phone app. This web preview mirrors your live numbers so you can see exactly how it reads.</p>
+    </div>
 
     <div class="card">
       <div class="ringwrap">
@@ -408,13 +484,21 @@ body.app-hidden .onboarding{display:flex}
   <section class="panel" id="panel-coach">
     <div class="card">
       <h2>Ask Coach</h2>
-      <p class="sub">Training and nutrition answers grounded in peer-reviewed research. If your question is missing a detail that changes the answer, Coach asks first.</p>
+      <p class="sub">Standalone AI coach — ask anything about training, nutrition, supplements, sleep, hydration or recovery. Answers are grounded in current peer-reviewed, science-based lifting (SBL) research and cite the study or position stand behind each claim. If a detail changes the answer, Coach asks first.</p>
+      <div class="chiprow" style="margin-top:10px"><span class="tag">Progressive overload</span><span class="tag">Protein &amp; leucine</span><span class="tag">Creatine</span><span class="tag">Volume &amp; RIR</span><span class="tag">Sleep</span><span class="tag">Hydration</span><span class="tag">B12 · Iron · Calcium</span><span class="tag">Deloads</span></div>
       <div class="chat" id="chatBox" style="margin-top:12px"></div>
       <div class="starter" id="starterQs">
         <button class="chip" data-q="How much protein do I actually need to build muscle?">How much protein to build muscle?</button>
         <button class="chip" data-q="Is creatine safe and does it work?">Does creatine work?</button>
         <button class="chip" data-q="I want to lose fat faster">I want to lose fat faster</button>
         <button class="chip" data-q="How many days a week should I train?">How many days should I train?</button>
+        <button class="chip" data-q="What is progressive overload and how do I do it?">Progressive overload?</button>
+        <button class="chip" data-q="How close to failure should I train?">How close to failure?</button>
+        <button class="chip" data-q="How much water should I drink?">How much water?</button>
+        <button class="chip" data-q="Am I getting enough vitamin B12, iron and calcium?">B12, iron &amp; calcium?</button>
+        <button class="chip" data-q="When should I deload?">When should I deload?</button>
+        <button class="chip" data-q="Does protein timing matter?">Protein timing?</button>
+        <button class="chip" data-q="How much sleep do I need for muscle growth?">Sleep for growth?</button>
       </div>
       <div class="chatrow">
         <input type="text" id="coachInput" placeholder="Ask about training, food, recovery..." />
@@ -433,9 +517,25 @@ body.app-hidden .onboarding{display:flex}
       <div class="mbar"><div class="mrow"><span style="color:var(--carbs)">Carbs</span><span id="tCTxt">0 / 0 g</span></div><div class="track"><div class="fill c" id="tCBar"></div></div></div>
       <div class="mbar"><div class="mrow"><span style="color:var(--fat)">Fat</span><span id="tFTxt">0 / 0 g</span></div><div class="track"><div class="fill f" id="tFBar"></div></div></div>
     </div>
+    <div class="card" id="waterCard">
+      <h2>💧 Water &amp; hydration</h2>
+      <p class="sub">Goal scales with bodyweight (about 35 ml per kg). Coffee and food count toward fluids too — this tracks glasses you drink on purpose.</p>
+      <div style="display:flex;justify-content:space-between;align-items:baseline;margin-top:10px"><b style="font-family:'Sora',sans-serif;font-size:1.5rem" id="waterTxt">0 ml</b><span class="sub" id="waterGoalTxt">of 2,500 ml</span></div>
+      <div class="water-bottle"><div class="water-fill" id="waterFill" style="width:0%"></div></div>
+      <div class="sub" id="waterMsg">Start with a glass now — even mild dehydration drags training performance.</div>
+      <div class="water-btns">
+        <button class="btn small" data-water="250">+ Glass · 250 ml</button>
+        <button class="btn small ghost" data-water="500">+ Bottle · 500 ml</button>
+        <button class="btn small ghost" data-water="750">+ Large · 750 ml</button>
+        <button class="btn small ghost" id="waterUndoBtn">Undo</button>
+        <button class="btn small ghost" id="waterResetBtn">Reset</button>
+      </div>
+    </div>
     <div class="card">
-      <h2>Micronutrients <span class="est">(recipe estimates)</span></h2>
-      <div id="microOut"></div>
+      <h2>🔬 Micronutrients <span class="est">(recipe estimates)</span></h2>
+      <p class="sub">Cronometer-style tracking against Recommended Daily Intake (RDA / AI from NIH Dietary Reference Intakes). Bars turn teal at 75%+ of RDA. Log meals to fill them — B12, iron and calcium included.</p>
+      <div id="microOut" style="margin-top:10px"></div>
+      <div id="microInsight" style="margin-top:10px"></div>
     </div>
     <div class="card">
       <h2>Everything logged</h2>
@@ -505,6 +605,14 @@ body.app-hidden .onboarding{display:flex}
       </div>
     </div>
     <div class="card">
+      <h2>Connected health &amp; widgets</h2>
+      <p class="sub">Manage where your steps, sleep and weight come from, and what your widgets show.</p>
+      <div class="switchrow"><div><b style="font-family:'Sora',sans-serif">Apple Health</b><div class="sub">iPhone · weight, steps, sleep</div></div><button class="switch" id="appleSwitch" role="switch" aria-checked="false" aria-label="Toggle Apple Health"></button></div>
+      <div class="switchrow"><div><b style="font-family:'Sora',sans-serif">Health Connect</b><div class="sub">Android · weight, steps, sleep</div></div><button class="switch" id="hcSwitch" role="switch" aria-checked="false" aria-label="Toggle Health Connect"></button></div>
+      <div class="switchrow"><div><b style="font-family:'Sora',sans-serif">Calories-left widget</b><div class="sub">Home screen + lock screen countdown</div></div><button class="switch" id="widgetSwitch" role="switch" aria-checked="true" aria-label="Toggle widget"></button></div>
+      <p class="est" style="margin-top:8px">On the web these are previews. In the phone app the toggles open the real system permission sheets.</p>
+    </div>
+    <div class="card">
       <h2>Setup</h2>
       <p class="sub">Re-run setup to redo the welcome questions and recalculate your plan from scratch. Start over clears your saved profile and brings the welcome screen back. Either way, your logged meals, day log and coach chat stay right where they are.</p>
       <button class="btn ghost block" id="rerunSetupBtn" style="margin-top:12px">Re-run setup</button>
@@ -562,6 +670,20 @@ window.AICoach = (function () {
     { keys:["tuna"], name:"Tuna", portion:"1 can (120 g)", kcal:170, p:36, c:0, f:2, micros:{iron:1.6, calcium:15, vitD:2, potassium:280, fiber:0} },
     { keys:["cheese"], name:"Cheese", portion:"1 slice (28 g)", kcal:113, p:7, c:0, f:9, micros:{iron:0.1, calcium:200, vitD:0.2, potassium:30, fiber:0} }
   ];
+
+  function extraMicros(name, kcal, p, qty) {
+    var n = String(name).toLowerCase(), q = qty || 1;
+    var b12 = 0.15, vitC = 4, mag = 18, zinc = 0.6, fol = 18, vitA = 22;
+    if (/salmon|tuna/.test(n)) { b12 = 3.0; vitC = 2; mag = 32; zinc = 0.7; fol = 25; vitA = 45; }
+    else if (/beef|steak|burger|bibimbap/.test(n)) { b12 = 2.4; vitC = 3; mag = 24; zinc = 5.2; fol = 14; vitA = 8; }
+    else if (/chicken/.test(n)) { b12 = 0.6; vitC = 2; mag = 30; zinc = 1.1; fol = 10; vitA = 12; }
+    else if (/egg/.test(n)) { b12 = 0.55; vitC = 0; mag = 6; zinc = 0.6; fol = 24; vitA = 80; }
+    else if (/yogurt|milk|cheese|shake|smoothie|parfait/.test(n)) { b12 = 0.7; vitC = 6; mag = 22; zinc = 0.9; fol = 12; vitA = 55; }
+    else if (/oat|rice|pasta|toast|bread|burrito/.test(n)) { b12 = 0.1; vitC = 3; mag = 28; zinc = 1.0; fol = 42; vitA = 5; }
+    else if (/salad|banana|apple|berry/.test(n)) { b12 = 0.05; vitC = 22; mag = 30; zinc = 0.5; fol = 38; vitA = 95; }
+    else if (/peanut/.test(n)) { b12 = 0; vitC = 0; mag = 50; zinc = 0.9; fol = 24; vitA = 0; }
+    return { b12: +(b12 * q).toFixed(2), vitC: Math.round(vitC * q), magnesium: Math.round(mag * q), zinc: +(zinc * q).toFixed(1), folate: Math.round(fol * q), vitA: Math.round(vitA * q) };
+  }
   var NUMWORDS = { a:1, an:1, one:1, two:2, three:3, four:4, five:5, half:0.5 };
 
   function parseFood(text) {
@@ -596,7 +718,7 @@ window.AICoach = (function () {
         name: found.name, qty: qty,
         portion: qty !== 1 ? (qty + " × " + found.portion) : found.portion,
         kcal: Math.round(found.kcal * qty), p: Math.round(found.p * qty), c: Math.round(found.c * qty), f: Math.round(found.f * qty),
-        micros: { iron: +(found.micros.iron * qty).toFixed(1), calcium: Math.round(found.micros.calcium * qty), vitD: +(found.micros.vitD * qty).toFixed(1), potassium: Math.round(found.micros.potassium * qty), fiber: Math.round(found.micros.fiber * qty) },
+        micros: (function(){ var b={ iron: +(found.micros.iron * qty).toFixed(1), calcium: Math.round(found.micros.calcium * qty), vitD: +(found.micros.vitD * qty).toFixed(1), potassium: Math.round(found.micros.potassium * qty), fiber: Math.round(found.micros.fiber * qty) }; var e=extraMicros(found.name, found.kcal, found.p, qty); for(var k in e) b[k]=e[k]; return b; })(),
         estimate: !!found.estimate
       });
     });
@@ -636,7 +758,7 @@ window.AICoach = (function () {
     if (f < 8) f = 8;
     return { name: tpl.name, img: tpl.img, alt: tpl.alt, ingredients: ings, steps: tpl.steps,
       kcal: kcal, p: p, c: c, f: f,
-      micros: { iron: +(kcal / 160).toFixed(1), calcium: Math.round(kcal / 4), vitD: +(kcal / 420).toFixed(1), potassium: Math.round(kcal * 1.25), fiber: Math.round(kcal / 95) } };
+      micros: (function(){ var b={ iron: +(kcal / 160).toFixed(1), calcium: Math.round(kcal / 4), vitD: +(kcal / 420).toFixed(1), potassium: Math.round(kcal * 1.25), fiber: Math.round(kcal / 95) }; var e=extraMicros(tpl.name, kcal, p, Math.max(1, kcal/550)); for(var k in e) b[k]=e[k]; return b; })() };
   }
 
   function buildMeal(cuisine, targetP, targetK) { return scaleMeal(CUISINES[cuisine] || CUISINES.Korean, targetP, targetK); }
@@ -726,7 +848,34 @@ window.AICoach = (function () {
       cite: "Welton S et al., Canadian Family Physician, 2020 (systematic review); Varady KA et al., Nutrition Reviews, 2022." },
     { keys: ["cardio"], clarify: "One detail that matters: is your main goal right now fat loss, muscle gain, or general fitness? Cardio dosing looks different for each.",
       answer: "For fat loss with muscle kept, low-intensity steady work (incline walking, easy cycling) layered on top of lifting beats hard intervals for most people: it burns calories without eating into recovery. 8,000 to 12,000 steps a day is the highest-return target. Keep 1 to 2 harder sessions a week if you enjoy them.",
-      cite: "Willis LH et al., Journal of Applied Physiology, 2012; Hanson S and Jones A, British Journal of Sports Medicine, 2015 (walking meta-analysis)." }
+      cite: "Willis LH et al., Journal of Applied Physiology, 2012; Hanson S and Jones A, British Journal of Sports Medicine, 2015 (walking meta-analysis)." },
+    { keys: ["progressive overload", "overload", "add weight", "get stronger"], clarify: null,
+      answer: "Progressive overload just means doing a little more over time: more reps, more load, or an extra set, while keeping form. The practical SBL method is double progression: pick a rep range (say 8 to 12), add reps each week until you hit the top on every set, then add the smallest load jump and rebuild. Log every top set — if the log is not moving over 3 to 4 weeks, change one variable, not the whole program.",
+      cite: "Schoenfeld BJ et al., Journal of Strength and Conditioning Research, 2017; ACSM progression models, Medicine & Science in Sports & Exercise, 2009." },
+    { keys: ["failure", "rir", "reps in reserve", "close to failure"], clarify: null,
+      answer: "You do not need to fail every set. Meta-analyses show hypertrophy is similar when sets stop about 1 to 3 reps short of failure, as long as volume is matched — and stopping short costs far less fatigue, especially on compounds. Take isolation work (laterals, curls, cable work) closer to 0 to 1 RIR, and keep big barbell lifts at 1 to 3 RIR.",
+      cite: "Grgic J et al., Journal of Sport and Health Science, 2022 (failure meta-analysis); Robinson ZP et al., Sports Medicine, 2023 (proximity-to-failure meta-regression)." },
+    { keys: ["water", "hydration", "how much water", "drink"], clarify: null,
+      answer: "A solid evidence-based target is about 35 ml of water per kg of bodyweight per day from all fluids, more on training days and in heat. Even about 2% body-mass dehydration measurably reduces strength and endurance performance. Use the Water tracker here: front-load a glass on waking, a bottle during training, and check that your urine stays pale yellow rather than chasing a fixed gallon number.",
+      cite: "Sawka MN et al., ACSM position stand on exercise and fluid replacement, 2007; Popkin BM et al., Nutrition Reviews, 2010." },
+    { keys: ["b12", "iron", "calcium", "micronutrient", "vitamin", "deficiency"], clarify: null,
+      answer: "The three to watch are exactly the ones this app now tracks against RDA. Vitamin B12 (RDA 2.4 µg/day) comes almost only from animal foods, so plant-based eaters usually need a supplement. Iron (RDA 18 mg/day for women, 8 mg for men) absorbs far better with vitamin C in the same meal. Calcium (RDA 1,000 mg/day) is easiest from dairy or fortified alternatives — most lifters who log under 600 mg are simply not eating enough of either. Check your Micro tracker: if a bar sits under 50% most days, fix food first, supplement second.",
+      cite: "NIH Office of Dietary Supplements fact sheets: Vitamin B12, Iron, Calcium (Dietary Reference Intakes); Hunt JR, American Journal of Clinical Nutrition, 2003 (iron absorption)." },
+    { keys: ["deload", "tired", "plateau", "stall"], clarify: null,
+      answer: "Deload when performance drops for 2+ sessions in a row, joints ache persistently, sleep worsens, or motivation tanks — typically every 4 to 8 weeks for hard trainers. A deload week means about half the sets and 60 to 70% of the load, same exercises. It is not a week off: you keep the habit and the skill, and shed the fatigue that was masking your fitness.",
+      cite: "Bell L et al., International Journal of Sports Physiology and Performance, 2023 (deloading practices review)." },
+    { keys: ["protein timing", "anabolic window", "after workout", "pre-workout meal"], clarify: null,
+      answer: "Total daily protein matters far more than timing. The old 30-minute anabolic window is mostly a myth when you eat protein regularly: meta-analysis shows the apparent timing effect disappears once total intake is matched. Practical rule: get 0.4 g/kg protein in a meal within a couple of hours either side of training, and spread the rest over 3 to 4 meals.",
+      cite: "Schoenfeld BJ et al., Journal of the International Society of Sports Nutrition, 2013 (protein timing meta-analysis); Morton RW et al., British Journal of Sports Medicine, 2018." },
+    { keys: ["volume", "how many sets", "sets per week"], clarify: null,
+      answer: "For hypertrophy, about 10 to 20 hard sets per muscle per week is the evidence-based working range, with a dose-response up to roughly 20 sets for advanced lifters. Start at the low end, add 2 sets for a lagging muscle, and only keep the extra volume if performance and recovery hold up.",
+      cite: "Schoenfeld BJ et al., Journal of Strength and Conditioning Research, 2017 (volume meta-analysis); Baz-Valle E et al., Journal of Human Kinetics, 2022." },
+    { keys: ["soreness", "dom", "recovery", "rest day"], clarify: null,
+      answer: "Soreness is not a scorecard — it mostly reflects novelty, not growth, and it fades as you repeat a movement (the repeated-bout effect). Judge a session by performance progression over weeks. For recovery, sleep and total calories/protein do more than any gadget; light movement on rest days helps soreness more than total stillness.",
+      cite: "Cheung K et al., Sports Medicine, 2003 (DOMS review); Dupuy O et al., Frontiers in Physiology, 2018 (recovery techniques meta-analysis)." },
+    { keys: ["supplement", "pre workout", "caffeine", "beta alanine"], clarify: null,
+      answer: "The short evidence-backed list: creatine monohydrate (3 to 5 g/day), caffeine (3 to 6 mg/kg about 45 to 60 min pre-training) for performance, and protein powder purely as convenient food. Beta-alanine can help efforts lasting 1 to 4 minutes but causes tingling and is optional. Everything else is a distant third behind sleep, total protein and progressive training.",
+      cite: "Kreider RB et al., JISSN, 2017 (creatine); Guest NS et al., JISSN, 2021 (caffeine position stand); Trexler ET et al., JISSN, 2015 (beta-alanine)." },
   ];
   var pendingClarify = null;
   function ask(question) {
@@ -739,7 +888,7 @@ window.AICoach = (function () {
         return { text: QA[i].answer, cite: QA[i].cite };
       }
     }
-    return { text: "Good question. I can go deep on protein targets, creatine, fat-loss rate, training frequency and splits, sleep, fasting windows, and cardio dosing, with the studies behind each answer. Try one of those, or rephrase and I will do my best to point you the right way.",
+    return { text: "Good question — I will answer it straight: for anything I have not covered with a named study yet, use the SBL defaults. Train each muscle about twice a week with 10 to 20 hard sets at 1 to 3 RIR, progress load or reps weekly, eat 1.6 g/kg protein, sleep 7 to 9 hours, and drink about 35 ml/kg of fluids. Ask me about progressive overload, failure/RIR, volume, deloads, protein timing, creatine, caffeine, hydration, B12/iron/calcium, sleep, fasting or cardio and I will give you the full cited answer.",
       cite: "Answers cite named peer-reviewed sources whenever a claim is made." };
   }
 
@@ -761,7 +910,10 @@ window.AICoach = (function () {
     split: { on: false, days: [0, 2, 4], trainDelta: 200, restDelta: -200 },
     override: null,
     log: [],
-    cuisine: "Korean"
+    cuisine: "Korean",
+    health: { connected: null, steps: null, sleepH: null, weightLb: null, lastSync: null },
+    waterMl: 0,
+    widgetOn: true
   };
 
   /* ---------- target math ---------- */
@@ -791,7 +943,7 @@ window.AICoach = (function () {
     return macrosFor(state.base.targets.kcal + d, state.profile.wt);
   }
   function totals() {
-    var t = { kcal: 0, p: 0, c: 0, f: 0, micros: { fiber: 0, iron: 0, calcium: 0, vitD: 0, potassium: 0 } };
+    var t = { kcal: 0, p: 0, c: 0, f: 0, micros: { fiber: 0, iron: 0, calcium: 0, vitD: 0, potassium: 0, b12: 0, vitC: 0, magnesium: 0, zinc: 0, folate: 0, vitA: 0 } };
     state.log.forEach(function (it) {
       t.kcal += it.kcal; t.p += it.p; t.c += it.c; t.f += it.f;
       if (it.micros) for (var k in t.micros) t.micros[k] += it.micros[k] || 0;
@@ -899,12 +1051,66 @@ window.AICoach = (function () {
     $("tPTxt").textContent = tot.p + " / " + tg.p + " g"; $("tPBar").style.width = Math.min(100, tot.p / tg.p * 100) + "%";
     $("tCTxt").textContent = tot.c + " / " + tg.c + " g"; $("tCBar").style.width = Math.min(100, tot.c / tg.c * 100) + "%";
     $("tFTxt").textContent = tot.f + " / " + tg.f + " g"; $("tFBar").style.width = Math.min(100, tot.f / tg.f * 100) + "%";
-    var RDA = [ ["Fiber", tot.micros.fiber, 30, "g"], ["Iron", +tot.micros.iron.toFixed(1), 18, "mg"], ["Calcium", Math.round(tot.micros.calcium), 1000, "mg"], ["Vitamin D", +tot.micros.vitD.toFixed(1), 15, "µg"], ["Potassium", Math.round(tot.micros.potassium), 3500, "mg"] ];
-    $("microOut").innerHTML = RDA.map(function (r) {
-      return '<div class="microbar"><div class="mrow" style="display:flex;justify-content:space-between;font-size:.84rem;font-weight:700"><span>' + r[0] + '</span><span style="color:var(--ink2)">' + r[1] + " / " + r[2] + " " + r[3] + '</span></div><div class="track"><div class="fill k" style="width:' + Math.min(100, r[1] / r[2] * 100) + '%"></div></div></div>';
-    }).join("") + '<p class="est" style="margin-top:8px">Micronutrient totals are recipe estimates based on typical ingredient values, not lab analysis.</p>';
+    var ironRDA = state.profile && state.profile.sex === "male" ? 8 : 18;
+    var RDA = [ ["Vitamin B12", +tot.micros.b12.toFixed(2), 2.4, "µg"], ["Iron", +tot.micros.iron.toFixed(1), ironRDA, "mg"], ["Calcium", Math.round(tot.micros.calcium), 1000, "mg"], ["Vitamin D", +tot.micros.vitD.toFixed(1), 15, "µg"], ["Vitamin C", Math.round(tot.micros.vitC), 90, "mg"], ["Vitamin A", Math.round(tot.micros.vitA), 900, "µg RAE"], ["Folate", Math.round(tot.micros.folate), 400, "µg DFE"], ["Magnesium", Math.round(tot.micros.magnesium), 420, "mg"], ["Zinc", +tot.micros.zinc.toFixed(1), 11, "mg"], ["Potassium", Math.round(tot.micros.potassium), 3500, "mg"], ["Fiber", Math.round(tot.micros.fiber), 30, "g"] ];
+    $("microOut").innerHTML = '<div class="micro-grid">' + RDA.map(function (r) {
+      var pct = Math.round(r[1] / r[2] * 100), cls = pct >= 100 ? "over" : pct >= 75 ? "good" : pct >= 35 ? "" : "low";
+      return '<div class="microbar ' + cls + '"><div class="mrow" style="display:flex;justify-content:space-between;font-size:.84rem;font-weight:700"><span>' + r[0] + '</span><span style="color:var(--ink2)">' + r[1] + " / " + r[2] + " " + r[3] + ' · <span class="pct">' + pct + '% RDA</span></span></div><div class="track"><div class="fill k" style="width:' + Math.min(100, pct) + '%"></div></div></div>';
+    }).join("") + '</div><p class="est" style="margin-top:8px">Micronutrient totals are recipe estimates based on typical ingredient values, not lab analysis. RDA = Recommended Dietary Allowance (AI used for potassium/fiber).</p>';
+    var low = RDA.filter(function(r){ return r[1]/r[2] < 0.5; }).map(function(r){ return r[0]; });
+    var mi = $("microInsight");
+    if (mi) mi.innerHTML = tot.kcal === 0 ? '<div class="banner"><span>🔬</span><span>Log a meal and your micros fill in here. Salmon, eggs, dairy and greens move B12, calcium and iron fastest.</span></div>' : (low.length ? '<div class="banner warn"><span>🔬</span><span>Still under 50% RDA: <b>' + low.slice(0,4).join(", ") + '</b>. Add a meal rich in those before reaching for a supplement.</span></div>' : '<div class="banner"><span>✓</span><span>Every tracked micro is at 50%+ of RDA. Strong day.</span></div>');
+    renderWater(); renderWidget(tg, tot);
   }
 
+
+  function waterGoal() { return state.profile ? Math.round(state.profile.wt * 0.453592 * 35 / 50) * 50 : 2500; }
+  function renderWater() {
+    var g = waterGoal(), ml = state.waterMl, pct = Math.min(100, Math.round(ml / g * 100));
+    var wt = $("waterTxt"); if (!wt) return;
+    wt.textContent = ml.toLocaleString() + " ml";
+    $("waterGoalTxt").textContent = "of " + g.toLocaleString() + " ml · " + pct + "%";
+    $("waterFill").style.width = pct + "%";
+    $("waterMsg").textContent = pct >= 100 ? "Goal hit. Keep sipping around training — you are covered for today." : pct >= 60 ? "Good progress. One bottle during training usually closes the gap." : pct >= 25 ? "On your way. Have a glass with your next meal." : "Start with a glass now — even mild dehydration drags training performance.";
+  }
+  function renderWidget(tg, tot) {
+    tg = tg || dayTargets(); tot = tot || totals();
+    var left = tg.kcal - tot.kcal;
+    var wk = $("wpKcal"); if (!wk) return;
+    wk.textContent = left.toLocaleString();
+    $("wpSub").textContent = "of " + tg.kcal.toLocaleString() + " kcal · Protein " + tot.p + "/" + tg.p + " g · Water " + state.waterMl + "/" + waterGoal() + " ml";
+    $("wpLockKcal").textContent = left.toLocaleString() + " kcal left";
+    $("wpLockP").textContent = tot.p + "/" + tg.p + " g";
+    $("wpLockW").textContent = state.waterMl + " ml";
+  }
+  function renderHealth() {
+    var h = state.health;
+    $("hsSteps").textContent = h.steps != null ? h.steps.toLocaleString() : "—";
+    $("hsSleep").textContent = h.sleepH != null ? h.sleepH + " hrs" : "—";
+    var w = h.weightLb || (state.profile ? state.profile.wt : null);
+    $("hsWeight").textContent = w ? w + " lb" : "—";
+    var on = !!h.connected;
+    $("appleStatus").textContent = (h.connected === "apple" ? "● " : "○ ") + "Apple Health";
+    $("appleStatus").classList.toggle("on", h.connected === "apple");
+    $("hcStatus").textContent = (h.connected === "healthconnect" ? "● " : "○ ") + "Health Connect";
+    $("hcStatus").classList.toggle("on", h.connected === "healthconnect");
+    $("syncTime").textContent = h.lastSync ? "Synced " + h.lastSync : "";
+    var as = $("appleSwitch"); if (as) as.setAttribute("aria-checked", h.connected === "apple");
+    var hs = $("hcSwitch"); if (hs) hs.setAttribute("aria-checked", h.connected === "healthconnect");
+    var ins = [];
+    if (h.sleepH != null) ins.push(h.sleepH >= 7 ? "Sleep is in the 7–9 hr growth range. Keep the same wake time." : "Sleep under 7 hrs — expect hunger and weaker sessions today. Prioritise tonight.");
+    if (h.steps != null) ins.push(h.steps >= 8000 ? "Steps on target (8k+) — great for fat loss without extra cardio." : "Steps are low so far. A 10-minute walk after meals is the easiest fix.");
+    $("healthInsight").innerHTML = ins.length ? '<div class="banner"><span>❤️</span><span>' + ins.join(" ") + '</span></div>' : "";
+  }
+  function doSync(source) {
+    state.health.connected = source;
+    if (state.health.steps == null) state.health.steps = 8432;
+    if (state.health.sleepH == null) state.health.sleepH = 7.4;
+    if (state.health.weightLb == null && state.profile) state.health.weightLb = state.profile.wt;
+    state.health.lastSync = new Date().toLocaleTimeString("en-US", { hour: "numeric", minute: "2-digit" });
+    renderHealth();
+    toast((source === "apple" ? "Apple Health" : "Health Connect") + " synced: steps, sleep & weight updated");
+  }
   function renderSplitOut() {
     var t = state.base.targets;
     var tr = macrosFor(t.kcal + state.split.trainDelta, state.profile.wt);
@@ -916,7 +1122,7 @@ window.AICoach = (function () {
       '<p class="sub" style="margin-top:6px">Today is a <b>' + (dayType() === "standard" ? "standard" : dayType()) + ' day</b>' + (state.override ? " (flipped manually)" : " (from your schedule)") + '.</p>';
   }
 
-  function renderAll() { if (!state.profile || !state.base) return; renderDayCards(); renderToday(); renderPlan(); renderTracker(); if (state.split.on) renderSplitOut(); }
+  function renderAll() { renderHealth(); if (!state.profile || !state.base) { renderWater(); return; } renderDayCards(); renderToday(); renderPlan(); renderTracker(); if (state.split.on) renderSplitOut(); }
 
   /* ---------- profile ---------- */
   function readProfile() {
@@ -1080,7 +1286,7 @@ window.AICoach = (function () {
     out.innerHTML = '<h3 style="margin:16px 0 2px;font-family:\'Sora\',sans-serif">Review ' + pendingItems.length + (pendingItems.length === 1 ? " item" : " items") + ' · ' + tot + ' kcal</h3><p class="sub">Edit anything that looks off, then log it all in one tap. Micros are recipe estimates.</p>' +
       pendingItems.map(function (it, i) {
         return '<div class="reviewitem"><div class="ri-head"><input class="rn" data-rf="' + i + ':name" value="' + esc(it.name) + '" aria-label="Item name" /><button class="iconbtn" data-rm="' + i + '" aria-label="Remove item"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg></button></div>' +
-          '<div class="sub">' + esc(it.portion) + (it.estimate ? ' · <span class="est">generic estimate, edit freely</span>' : "") + ' · micros (est): fiber ' + it.micros.fiber + ' g, iron ' + it.micros.iron + ' mg, calcium ' + it.micros.calcium + ' mg, vit D ' + it.micros.vitD + ' µg, potassium ' + it.micros.potassium + ' mg</div>' +
+          '<div class="sub">' + esc(it.portion) + (it.estimate ? ' · <span class="est">generic estimate, edit freely</span>' : "") + ' · micros (est): fiber ' + it.micros.fiber + ' g, iron ' + it.micros.iron + ' mg, calcium ' + it.micros.calcium + ' mg, B12 ' + (it.micros.b12||0) + ' µg, vit D ' + it.micros.vitD + ' µg, potassium ' + it.micros.potassium + ' mg</div>' +
           '<div class="ri-nums">' +
           '<div><label>kcal</label><input type="number" data-rf="' + i + ':kcal" value="' + it.kcal + '" /></div>' +
           '<div><label>Protein g</label><input type="number" data-rf="' + i + ':p" value="' + it.p + '" /></div>' +
@@ -1136,7 +1342,7 @@ window.AICoach = (function () {
       '<div style="margin:6px 0"><span class="tag">' + meal.kcal + ' kcal</span> <span class="tag">Protein ' + meal.p + ' g</span> <span class="tag">Carbs ' + meal.c + ' g</span> <span class="tag">Fat ' + meal.f + ' g</span></div>' +
       '<b style="font-size:.9rem">Ingredients</b><ul class="inglist">' + meal.ingredients.map(function (i) { return '<li>' + esc(i.label) + ' <span class="sub">(' + i.kcal + ' kcal · ' + i.p + ' g protein)</span></li>'; }).join("") + '</ul>' +
       '<b style="font-size:.9rem">Method</b><ol class="inglist">' + meal.steps.map(function (s) { return '<li>' + esc(s) + '</li>'; }).join("") + '</ol>' +
-      '<p class="est">Micros (recipe estimates): fiber ' + meal.micros.fiber + ' g · iron ' + meal.micros.iron + ' mg · calcium ' + meal.micros.calcium + ' mg · vitamin D ' + meal.micros.vitD + ' µg · potassium ' + meal.micros.potassium + ' mg</p>' +
+      '<p class="est">Micros (recipe estimates): fiber ' + meal.micros.fiber + ' g · iron ' + meal.micros.iron + ' mg · calcium ' + meal.micros.calcium + ' mg · B12 ' + (meal.micros.b12||0) + ' µg · vitamin D ' + meal.micros.vitD + ' µg · potassium ' + meal.micros.potassium + ' mg</p>' +
       '<button class="btn block log-meal" style="margin-top:10px">Log this ' + sourceLabel + '</button>';
   }
   function wireLogMeal(out, meal) {
@@ -1176,7 +1382,7 @@ window.AICoach = (function () {
   $("mhOut").addEventListener("click", function (e) {
     var b = e.target.closest(".mh-log"); if (!b) return;
     var o = currentMH[+b.getAttribute("data-i")]; if (!o) return;
-    state.log.push({ name: o.title, portion: "1 serving", kcal: o.kcal, p: o.p, c: o.c, f: o.f, micros: { fiber: 6, iron: 2.8, calcium: 140, vitD: 0.3, potassium: 560 } });
+    state.log.push({ name: o.title, portion: "1 serving", kcal: o.kcal, p: o.p, c: o.c, f: o.f, micros: { fiber: 6, iron: 2.8, calcium: 140, vitD: 0.3, potassium: 560, b12: 1.1, vitC: 12, magnesium: 55, zinc: 2.2, folate: 45, vitA: 60 } });
     renderAll(); toast("Logged · " + o.kcal + " kcal"); switchTab("today");
   });
 
@@ -1192,7 +1398,7 @@ window.AICoach = (function () {
   $("snackOut").addEventListener("click", function (e) {
     var b = e.target.closest(".snack-log"); if (!b) return;
     var s = currentSnacks[+b.getAttribute("data-i")]; if (!s) return;
-    state.log.push({ name: s.name, portion: "1 snack", kcal: s.kcal, p: s.p, c: Math.round(s.kcal * 0.36 / 4), f: Math.round(s.kcal * 0.2 / 9), micros: { fiber: 5, iron: 1, calcium: 220, vitD: 1.4, potassium: 420 } });
+    state.log.push({ name: s.name, portion: "1 snack", kcal: s.kcal, p: s.p, c: Math.round(s.kcal * 0.36 / 4), f: Math.round(s.kcal * 0.2 / 9), micros: { fiber: 5, iron: 1, calcium: 220, vitD: 1.4, potassium: 420, b12: 0.6, vitC: 18, magnesium: 35, zinc: 0.8, folate: 25, vitA: 70 } });
     renderAll(); toast(s.name + " logged · " + s.kcal + " kcal"); switchTab("today");
   });
   $("snackBtn").addEventListener("click", function () { var o = $("snackOut"); skeleton(o, 120); setTimeout(renderSnacks, 550); });
@@ -1206,7 +1412,7 @@ window.AICoach = (function () {
     chat.appendChild(d); chat.scrollTop = chat.scrollHeight;
     return d;
   }
-  addMsg("Hey, I am your coach. Ask me about protein, training splits, fat loss, creatine, sleep or fasting, and I will answer with the research behind it. Log food by voice over on the Today tab whenever you eat.", "coach");
+  addMsg("Hey, I am your coach — ask me anything. Protein, overload, volume, RIR, deloads, creatine, caffeine, sleep, hydration, B12/iron/calcium, fat loss, fasting or cardio: every answer comes with the research behind it. Log food by voice on Today whenever you eat.", "coach");
   function sendCoach() {
     var inp = $("coachInput"), q = inp.value.trim(); if (!q) return;
     inp.value = ""; addMsg(q, "me");
@@ -1223,6 +1429,23 @@ window.AICoach = (function () {
     var b = e.target.closest("[data-q]"); if (!b) return;
     $("coachInput").value = b.getAttribute("data-q"); sendCoach();
   });
+
+  /* ---------- health sync, water & widget controls ---------- */
+  $("connectAppleBtn").addEventListener("click", function(){ doSync("apple"); });
+  $("connectHcBtn").addEventListener("click", function(){ doSync("healthconnect"); });
+  $("syncNowBtn").addEventListener("click", function(){ doSync(state.health.connected || "apple"); });
+  $("hsSaveBtn").addEventListener("click", function(){
+    var s=$("hsStepsIn").value, sl=$("hsSleepIn").value, w=$("hsWeightIn").value;
+    if(s!=="") state.health.steps=+s; if(sl!=="") state.health.sleepH=+sl; if(w!=="") state.health.weightLb=+w;
+    state.health.lastSync=new Date().toLocaleTimeString("en-US",{hour:"numeric",minute:"2-digit"});
+    renderHealth(); if(state.profile) renderWidget(); toast("Health values updated");
+  });
+  $("appleSwitch").addEventListener("click", function(){ state.health.connected = state.health.connected==="apple" ? null : "apple"; if(state.health.connected) doSync("apple"); else renderHealth(); });
+  $("hcSwitch").addEventListener("click", function(){ state.health.connected = state.health.connected==="healthconnect" ? null : "healthconnect"; if(state.health.connected) doSync("healthconnect"); else renderHealth(); });
+  $("widgetSwitch").addEventListener("click", function(){ state.widgetOn=!state.widgetOn; this.setAttribute("aria-checked", state.widgetOn); toast(state.widgetOn ? "Calories-left widget on" : "Calories-left widget off"); });
+  document.querySelectorAll("[data-water]").forEach(function(b){ b.addEventListener("click", function(){ state.waterMl += +b.getAttribute("data-water"); renderWater(); if(state.profile) renderWidget(); toast("Water logged · " + state.waterMl + " ml today"); }); });
+  $("waterUndoBtn").addEventListener("click", function(){ state.waterMl=Math.max(0,state.waterMl-250); renderWater(); if(state.profile) renderWidget(); });
+  $("waterResetBtn").addEventListener("click", function(){ state.waterMl=0; renderWater(); if(state.profile) renderWidget(); toast("Water reset for today"); });
 
   /* ---------- tabs & quick actions ---------- */
   function switchTab(name) {
@@ -1355,6 +1578,7 @@ window.AICoach = (function () {
   $("topDate").textContent = now.toLocaleDateString("en-US", { weekday: "short", month: "short", day: "numeric" });
   /* No saved profile on a fresh visit: the welcome flow comes first and no
      targets are calculated or shown until setup is completed. */
+  renderHealth(); renderWater();
   showWelcome();
 })();
 </script>
