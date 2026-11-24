@@ -991,31 +991,38 @@ window.AICoach = (function () {
   });
 
   /* ---------- voice logging ---------- */
-  var listening = false, recog = null;
+  var listening = false, recog = null, recogSawResult = false, recogSawError = false, micSticky = false;
   var SAMPLES = ["two eggs, a chicken burrito and a protein shake", "a salmon bowl and a banana", "greek yogurt, oatmeal and coffee", "a chicken salad bowl and an apple"];
   var sampleIdx = 0;
   function setMicUI(on) {
     listening = on;
     $("micBtn").classList.toggle("listening", on);
     $("eq").classList.toggle("on", on);
-    $("micStatus").textContent = on ? "Listening... tap again to stop" : "Tap to talk";
-    $("micHint").textContent = on ? "Say everything you ate, with amounts if you can" : 'Try: "two eggs, a chicken burrito and a protein shake"';
+    if (on) {
+      micSticky = false;
+      $("micStatus").textContent = "Listening... tap again to stop";
+      $("micHint").textContent = "Say everything you ate, with amounts if you can";
+    } else if (!micSticky) {
+      $("micStatus").textContent = "Tap to talk";
+      $("micHint").textContent = 'Try: "two eggs, a chicken burrito and a protein shake"';
+    }
+  }
+  function micFail(msg) {
+    micSticky = true;
+    setMicUI(false);
+    $("micStatus").textContent = msg;
+    $("micHint").textContent = "Typing works exactly the same: write what you ate below, then tap Review items.";
+    toast(msg);
+  }
+  function stopRecog() {
+    if (recog) { try { recog.stop(); } catch (e) {} }
+    setMicUI(false);
   }
   $("micBtn").addEventListener("click", function () {
-    if (listening) { if (recog) { try { recog.stop(); } catch (e) {} } setMicUI(false); return; }
+    if (listening) { stopRecog(); return; }
     var SR = window.SpeechRecognition || window.webkitSpeechRecognition;
-    setMicUI(true);
-    if (SR) {
-      recog = new SR(); recog.lang = "en-US"; recog.interimResults = true;
-      recog.onresult = function (ev) {
-        var txt = "";
-        for (var i = 0; i < ev.results.length; i++) txt += ev.results[i][0].transcript;
-        $("voiceText").value = txt;
-      };
-      recog.onend = function () { setMicUI(false); };
-      recog.onerror = function () { setMicUI(false); };
-      try { recog.start(); } catch (e) { setMicUI(false); }
-    } else {
+    if (!SR) {
+      setMicUI(true);
       setTimeout(function () {
         if (!listening) return;
         setMicUI(false);
@@ -1023,6 +1030,43 @@ window.AICoach = (function () {
         $("micStatus").textContent = "Got it. Review below, then log it.";
         toast("Voice captured (demo transcript)");
       }, 2200);
+      return;
+    }
+    recogSawResult = false; recogSawError = false;
+    try { recog = new SR(); } catch (e) { micFail("Voice is not available in this browser."); return; }
+    recog.lang = "en-US"; recog.interimResults = true; recog.continuous = false;
+    try { recog.maxAlternatives = 1; } catch (e) {}
+    var baseText = $("voiceText").value.trim();
+    recog.onresult = function (ev) {
+      recogSawResult = true;
+      var txt = "";
+      for (var i = 0; i < ev.results.length; i++) txt += ev.results[i][0].transcript;
+      $("voiceText").value = (baseText ? baseText.replace(/[\s,]+$/, "") + ", " : "") + txt;
+    };
+    recog.onerror = function (ev) {
+      recogSawError = true;
+      var err = ev && ev.error ? String(ev.error) : "";
+      if (err === "aborted") { setMicUI(false); return; }
+      if (recogSawResult) { setMicUI(false); $("micStatus").textContent = "Got it. Check the text, then tap Review items."; return; }
+      if (err === "no-speech") { micFail("I did not catch anything. Tap the mic and try again, a little closer and slower."); return; }
+      if (err === "not-allowed" || err === "service-not-allowed") { micFail("The microphone is blocked in this browser, so voice logging cannot run here."); return; }
+      if (err === "audio-capture") { micFail("No working microphone was found on this device."); return; }
+      if (err === "network") { micFail("Voice recognition could not reach its speech service. Check your connection, or type it instead."); return; }
+      micFail("Voice logging hit a snag" + (err ? " (" + err + ")" : "") + ". Nothing was lost, type what you ate instead.");
+    };
+    recog.onend = function () {
+      if (!listening) return;
+      var got = recogSawResult && !recogSawError;
+      setMicUI(false);
+      if (got) $("micStatus").textContent = "Got it. Check the text, then tap Review items.";
+    };
+    setMicUI(true);
+    try { recog.start(); } catch (e) {
+      /* A previous session was still winding down: stop it and let the next tap start clean. */
+      try { recog.stop(); } catch (e2) {}
+      micSticky = true;
+      setMicUI(false);
+      $("micStatus").textContent = "Voice was still finishing the last take. Tap the mic to try again.";
     }
   });
 
